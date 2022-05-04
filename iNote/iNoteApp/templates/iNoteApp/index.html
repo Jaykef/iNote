@@ -1,0 +1,115 @@
+{% extends 'iNoteApp/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+      .mdl-button--floating-action {
+        position: relative;
+        float: right;
+        left: 20px;
+        bottom: -420px;
+        z-index: 998;
+      }
+    </style>
+      <div class="container main">
+      <h1 class="head my-5">
+        <b> My Notes </b>
+      </h1>
+
+      <button
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+        class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--floating-action"
+      >
+        <i class="material-icons">add</i>
+      </button>
+      <!-- CARDS ARE START FROM HERE-->
+      <div class="row">
+        {% for x in data %}
+        <form method="GET" action="/delete">
+          <div
+            style="margin-right: 12px; margin-bottom: 10px;"
+            class="demo-card-event mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-card--expand">
+              <input type="hidden" name="note" value="{{ x }}">
+              <h4>
+                {{ x }}
+              </h4>
+            </div>
+            
+            <div class="mdl-card__actions mdl-card--border mx-2">
+              {{ x.date }}
+              <div class="mdl-layout-spacer"></div>
+              <button style="color: white" type="submit" class="btn btn-link"> <i class="material-icons">delete</i> </button>
+            </div>
+          </div>
+      </form>
+        {% endfor %}
+      </div>
+    </div>
+    
+
+    <!-- ADD DATA MODEL -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius: 20px">
+          <div class="modal-header">
+            <h2 class="modal-title head" id="exampleModalCenterTitle">
+              <b>Add New Note</b>
+            </h2>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/"> 
+              {% csrf_token %}
+              <h4 class="head"><b>Note Title</b></h4>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text text-all" id="inputGroup-sizing-default"
+                    >Title</span
+                  >
+                </div>
+                <input
+                  type="text"
+                  class="form-control text-all"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                  name="note"
+                />
+              </div>
+              <h2 class="head"><b>Note Body</b></h2>
+              <textarea name="noteeditor" style="border-radius: .5rem;"></textarea>
+              <script>
+                CKEDITOR.replace('noteeditor');
+              </script>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger" style="border-radius: 14px"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary" style="border-radius: 14px">Add note</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}
+
+    

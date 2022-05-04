@@ -1,0 +1,14 @@
+{% extends 'iNoteApp/base.html' %}
+{% load static %}
+{% block content %}
+<center>
+<h1 class="mt-5 head">Your Note "{{ note }}" is deleted Successfully</h1>
+    <a class="btn btn-danger mt-4" href="/">Go to Home</a>
+</center>
+
+    <script>
+        localStorage.clear();
+    </script>
+    
+
+{% endblock %}
