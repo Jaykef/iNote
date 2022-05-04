@@ -1,3 +1,3 @@
 # iNote
 
-### A student note web app
+### A student note django web app
